@@ -1,0 +1,80 @@
+.spash-screen{
+    position: absolute;
+}
+
+.case-list{
+    position: relative;
+    float: left;
+    height: 100vh;
+    background-color: #202225
+}
+
+.options{
+    position: relative;
+    float: right;
+    height: 410px;
+    width: 200px;
+}
+
+
+
+.space{
+    position: relative;
+    float: right;
+    width: 100px;
+}
+
+#app-name {
+    font-family: "Times New Roman", Times, serif;
+    font-weight: 900;
+    font-size: 30px;
+}
+
+.elementToFadeInAndOutLeft {
+    opacity: 1;
+    animation: fade-left 2s linear;
+}
+
+@keyframes fade-left {
+  0% { 
+    opacity: 0; 
+    transform: translateX(-5px);
+    }
+  100% { 
+      opacity: 1; 
+      transform: translateX(0px);
+    }
+}
+
+
+.elementToFadeInAndOutRight{
+    opacity: 1;
+    animation: fade-right 2s linear;
+}
+
+@keyframes fade-right {
+  0% { 
+    opacity: 0; 
+    transform: translateX(5px);
+    }
+  100% { 
+      opacity: 1; 
+      transform: translateX(0px);
+    }
+}
+
+/* Disables scrollbar */
+body {
+    overflow-y: hidden;
+    overflow-x: hidden;
+}
+
+
+/* Debugging Utilities */
+.bold-borders{
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+}
+

@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- js/jQuery Electron Configuration-->
+  <script>if (typeof module === 'object') { window.module = module; module = undefined; }</script>
+
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script> -->
+
+  <script src="jquery/jquery-3.2.1.slim.min.js"></script>
+  
+  <!--  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script> -->
+  
+  <script src="popper/popper.min.js"></script>
+  <script src="bootstrap/js/bootstrap.min.js"></script>
+
+  <!-- Materialize js -->
+  <script src="materialize/js/materialize.js"></script>
+
+  <!-- Electron configuration -->
+  <script>if (window.module) module = window.module;</script>
+
+  <!-- Styles CSS -->
+  <link rel="stylesheet" href="css/main-menu.css">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="materialize/css/materialize.css">
+  <!--  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+    crossorigin="anonymous"> -->
+  <link rel="stylesheet" href="bootstrap/bootstrap.min.css">
+
+  <!-- Materialize CSS -->
+  <!-- <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet"> -->
+
+  <title>Flexcel</title>
+</head>
+
+<body style="background-color: #000000">
+
+  <div class="spash-screen">
+
+    <div class="case-list elementToFadeInAndOutLeft" style="width: 400px; background-color: #000000">
+      <img src="img/logo/flexcel-logo.png" alt="" width="530">
+    </div>
+    <div class="options btn-group-vertical elementToFadeInAndOutRight">
+      <br>
+      <br>
+      <br>
+      <br>
+      <div style="height: 100px;">
+        <br>
+      </div>
+      <button id="ld" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">LD</button>
+      <button id="pf" type="button" class="btn btn-primary">PF</button>
+      <button id="policy" type="button" class="btn btn-primary">Policy</button>
+
+      <div class="dropdown-menu" aria-labelledby="ld">
+        <a id="Traditional-Flow-1AC" class="dropdown-item" href="#">Traditional Flow 1AC</a>
+        <a id="Plan-Flow-1AC" class="dropdown-item" href="#">Plan Flow 1AC</a>
+      </div>
+
+    </div>
+    <div class="space" style="height: 150px; width: 70px">
+    </div>
+  </div>
+
+  <!-- Main js-->
+  <script src="js/main-menu/main-menu.js"></script>
+
+</body>
+</html>

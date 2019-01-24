@@ -1,0 +1,162 @@
+
+/* Disables scrollbar */
+body {
+    overflow-y: hidden;
+    overflow-x: hidden;
+}
+ 
+#flexce{
+    position: absolute;
+}
+
+.plan-container{
+    position: absolute;
+    height: 100vh;
+    width: 68.80152187698161vw;
+}
+
+.plan-flow{
+    /* forces the div to the left */
+    position: relative;
+    float: left;
+    height: 100%;
+    width: 100%;
+}
+
+.doc-container{
+    position: relative !important;
+    float: right;
+    width: 31vw;
+    height: 100vh;
+}
+
+.doc-flow{
+    position: relative;
+    float: right;
+    height: 100%;
+    width: 100%;
+}
+
+#doc-navbar{
+    height: 100%;
+}
+
+form{
+    height: 100%;
+}
+
+#ephox_doc1, #ephox_doc2, #ephox_doc3, #ephox_doc4, #ephox_doc5{
+    height: 100% !important;
+}
+
+.ephox-polish-sticky-container{
+    position: relative;
+    float: right;
+    height: 100%;
+    width: 100%;
+}
+
+.ephox-polish-socket{
+    position: relative;
+    float: right;
+    height: 100%;
+    width: 100%;
+}
+
+.docs{
+    height: 94%;
+    width: 100%;
+    overflow-y: hidden;
+}
+
+
+.doc{
+    height: 100%;
+    width: 100%;
+    overflow-y: hidden;
+}
+
+/* stacks inner div on top of each other */
+.inner {
+    position: absolute;
+  }
+
+/* Pre-Loader */
+.loader {
+    position: absolute;
+    margin: 0 auto;
+    margin-top: -50px;
+    margin-left: -50px;
+    top: 45%;
+    left: 50%;
+    width: 200px;
+    height: 200px;
+    border: 32px solid #202225; /* Light grey */
+    border-top: 32px solid #007bff; /* Blue */
+    border-radius: 50%;
+    animation: spin 2s linear infinite;
+}
+
+
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.elementToFadeInAndOutLeft {
+    opacity: 1;
+    animation: fade-left 2s linear;
+}
+
+@keyframes fade-left {
+  0% { 
+    opacity: 0; 
+    transform: translateX(-5px);
+    }
+  100% { 
+      opacity: 1; 
+      transform: translateX(0px);
+    }
+}
+
+
+.elementToFadeInAndOutRight{
+    opacity: 1;
+    animation: fade-right 2s linear;
+}
+
+@keyframes fade-right {
+  0% { 
+    opacity: 0; 
+    transform: translateX(5px);
+    }
+  100% { 
+      opacity: 1; 
+      transform: translateX(0px);
+    }
+}
+
+/* Debugging Utilities */
+.bold-borders{
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+}
+
+
+
+input[class=txt]
+{
+    display:none;
+    width:120px;
+    color: white;
+    border-bottom-color: #007bff !important;
+}
+
+
+
+a{
+    display: block;
+}
