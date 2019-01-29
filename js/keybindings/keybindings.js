@@ -1,4 +1,3 @@
-
 // Variables used to access HTML elements for DOM manipulation
 
 var tabs_li = document.getElementById('flow-navbar').getElementsByClassName('nav-item')
