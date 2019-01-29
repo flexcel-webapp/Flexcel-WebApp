@@ -77,7 +77,7 @@ for (i = 0; i < pro_tabs.length; i++) {
   container = document.getElementById(pro_tabs[i].id);
 
   handsontable_flows.push(new Handsontable(container, {
-    data: [['Pro Constructive', 'Con Rebuttal', 'Pro Summary', 'Con Summary', 'Pro Final Focus', 'Con Final Focus','','','','','','']],
+    data: [['Pro Constructive', 'Con Rebuttal', 'Pro Summary', 'Con Summary', 'Pro Final Focus', 'Con Final Focus', '', '', '', '', '', '']],
     minCols: 6,
     maxCols: 12,
     minRows: 40,
@@ -86,6 +86,7 @@ for (i = 0; i < pro_tabs.length; i++) {
     height: 500,
     viewportRowRenderingOffsetequal: 30,
     viewportColumnRenderingOffset: 5,
+    licenseKey: 'a5f3a-e25a6-f1693-b4c16-1b148',
     colWidths: 190,
     fillHandle: {
       autoInsertRow: true
@@ -124,6 +125,7 @@ for (i = 0; i < con_tabs.length; i++) {
     fillHandle: {
       autoInsertRow: true
     },
+    licenseKey: 'a5f3a-e25a6-f1693-b4c16-1b148',
     minSpareRows: true,
     cells: function (row, col) {
       var cellProperties = {};

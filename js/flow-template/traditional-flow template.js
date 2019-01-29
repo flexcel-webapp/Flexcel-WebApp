@@ -6,14 +6,14 @@ var AC_tabs = document.getElementsByClassName('AC');
 var NC_tabs = document.getElementsByClassName('NC');
 
 var selectCell_rc = [
-  [0,0],[0,0]
+  [0, 0], [0, 0]
 ]
 
 
 var data = {
-  'flow_type':'LD Traditional Flow',
-  'flow-data':[],
-  'boldElements':[]
+  'flow_type': 'LD Traditional Flow',
+  'flow-data': [],
+  'boldElements': []
 }
 
 var flow_type = 'LD Traditional Flow'
@@ -25,7 +25,7 @@ var negFontColor = '#076BFF'
 var affShadeColor = '#ffffff'
 var negShadeColor = '#ffffff'
 
-var bold_RC = [[],[]]
+var bold_RC = [[], []]
 
 
 /* Hides the flow and speech-doc until the screen is wholly rendered */
@@ -41,67 +41,68 @@ document.getElementById('sd').style.visibility = 'sd'
 function ac_flowRenderer(instance, td, row, col, prop, value, cellProperties) {
   Handsontable.renderers.TextRenderer.apply(this, arguments);
 
-  if (col % 2 == 1) { 
-    td.style.color = negFontColor; 
+  if (col % 2 == 1) {
+    td.style.color = negFontColor;
     td.style.background = negShadeColor
 
   }
-  else { 
-    td.style.color = affFontColor; 
+  else {
+    td.style.color = affFontColor;
     td.style.background = affShadeColor
   }
 
 
-  
+
 }
 
 function nc_flowRenderer(instance, td, row, col, prop, value, cellProperties) {
   Handsontable.renderers.TextRenderer.apply(this, arguments);
 
-  if (col % 2 == 1) { 
-    td.style.color = affFontColor; 
+  if (col % 2 == 1) {
+    td.style.color = affFontColor;
     td.style.background = affShadeColor
 
-    
+
   }
-  else { 
-    td.style.color = negFontColor; 
+  else {
+    td.style.color = negFontColor;
     td.style.background = negShadeColor
 
   }
-  
+
 }
 Handsontable.renderers.registerRenderer('ac_flowRenderer', ac_flowRenderer);
 
 // -- Adds AC Flows
 
-for(i = 0;i<AC_tabs.length;i++){
-    container = document.getElementById(AC_tabs[i].id);
+for (i = 0; i < AC_tabs.length; i++) {
+  container = document.getElementById(AC_tabs[i].id);
 
-    handsontable_flows.push(new Handsontable(container,{
-      colHeaders: ['AC', '1NR', '1AR', '2NR', '2AR'],
-      minCols: 5,
-      minRows: 40,
-      maxRows: 200,
-      width: 500,
-      height: 500, 
-      viewportRowRenderingOffsetequal: 35,
-      viewportColumnRenderingOffset:5,
-      colWidths: 190,
-      fillHandle:{
-        autoInsertRow: true
-      },
-      minSpareRows:true,
-      cells: function (row, col) {
-        var cellProperties = {};
-        var data = this.instance.getData();
+  handsontable_flows.push(new Handsontable(container, {
+    colHeaders: ['AC', '1NR', '1AR', '2NR', '2AR'],
+    minCols: 5,
+    minRows: 40,
+    maxRows: 200,
+    width: 500,
+    height: 500,
+    viewportRowRenderingOffsetequal: 35,
+    viewportColumnRenderingOffset: 5,
+    colWidths: 190,
+    licenseKey: 'a5f3a-e25a6-f1693-b4c16-1b148',
+    fillHandle: {
+      autoInsertRow: true
+    },
+    minSpareRows: true,
+    cells: function (row, col) {
+      var cellProperties = {};
+      var data = this.instance.getData();
 
-    
-          cellProperties.renderer = 'ac_flowRenderer';
-    
-        return cellProperties;
-      }
-    }))
+
+      cellProperties.renderer = 'ac_flowRenderer';
+
+      return cellProperties;
+    }
+  }))
 }
 
 Handsontable.renderers.registerRenderer('nc_flowRenderer', nc_flowRenderer);
@@ -109,33 +110,34 @@ Handsontable.renderers.registerRenderer('nc_flowRenderer', nc_flowRenderer);
 
 // -- Adds NC Flows
 
-for(i = 0;i<NC_tabs.length;i++){
+for (i = 0; i < NC_tabs.length; i++) {
   container = document.getElementById(NC_tabs[i].id);
 
-  handsontable_flows.push(new Handsontable(container,{
-    colHeaders: ['1NC', '1AR', '2NR','2AR'],
+  handsontable_flows.push(new Handsontable(container, {
+    colHeaders: ['1NC', '1AR', '2NR', '2AR'],
     minCols: 4,
     maxCols: 4,
     minRows: 40,
     maxRows: 200,
     width: 500,
-    height: 500, 
+    height: 500,
     viewportRowRenderingOffsetequal: 35,
-    viewportColumnRenderingOffset:4,
+    viewportColumnRenderingOffset: 4,
     colWidths: 240,
-    fillHandle:{
+    fillHandle: {
       autoInsertRow: true
     },
-    minSpareRows:true,
+    minSpareRows: true,
+    licenseKey: 'a5f3a-e25a6-f1693-b4c16-1b148',
     cells: function (row, col) {
       var cellProperties = {};
       var data = this.instance.getData();
-  
 
-      cellProperties.renderer = 'nc_flowRenderer'; 
-  
 
-  
+      cellProperties.renderer = 'nc_flowRenderer';
+
+
+
       return cellProperties;
     }
   }))
@@ -143,7 +145,7 @@ for(i = 0;i<NC_tabs.length;i++){
 
 /* Initializes data to be saved */
 
-for(i = 0;i<handsontable_flows.length;i++){
+for (i = 0; i < handsontable_flows.length; i++) {
   data['flow-data'].push(handsontable_flows[i].getData())
 }
 

@@ -386,24 +386,7 @@ Mousetrap.bind(['command+s', 'ctrl+s'], function () {
 
             selectAllCells()
             if (fileName != '') {
-                document.title = fileName
-                dialog.showOpenDialog({
-                    properties: ['openDirectory']
-                }, (filePaths, bookmarks) => {
-
-                    if (filePaths[0] === undefined) {
-                        console.log("You didn't save the file")
-                        return;
-                    }
-                    var fP = filePaths[0] + '/' + fileName
-
-                    fs.writeFile(fP + '.json', jsonContent, 'utf8', (err) => {
-                        if (err) {
-                            alert("An error ocurred creating the file " + err.message)
-                        }
-                        alert("The file has been succesfully saved")
-                    })
-                })
+                localStorage.setItem(fileName,jsonContent)
             }
         }
     })
@@ -524,6 +507,74 @@ Mousetrap.bind(['command+g', 'ctrl+g'], function () {
 }, 'keyup')
 
 
+/* Generates a modal for the user to see and open saved flows */
+
+Mousetrap.bind(['command+h', 'ctrl+h'], function () {
+
+    generateAutoList()
+    handsontable_flows[index].deselectCell()
+
+    vex.dialog.open({
+      
+        input: autocomplete_list.join(''),
+        buttons: [
+
+        ],
+        callback: function (data) {
+            if (!data) {
+                console.log('Cancelled')
+            } else {
+
+            }
+            selectAllCells()
+
+        }
+    })
+
+
+
+    $('.autocomplete_list').css({
+        "overflow-y": "scroll", "height": (win_height * 0.9) + "px", "width": "98%", "top": "50%"
+    })
+
+    $('.vex-content').css({
+        "overflow-y": "hidden",
+        "display": "inline-block",
+        "position": "fixed",
+        "top": "0",
+        "bottom": "0",
+        "left": "0",
+        "right": "0"
+    })
+
+    $('.vex-overlay').css({
+        "overflow-y": "hidden"
+    })
+    $('.vex').css({
+        "overflow-y": "hidden"
+    })
+
+
+    $('.open_flow').on('click', function (e) {
+       
+    })
+
+}, 'keyup')
+
+function generateFlowList() {
+    autocomplete_list = ['<div class = "flow">',
+    '<ul class="list-group">',
+    '</ul>',
+    '</div>'
+]
+
+    for (key in autocomplete) {
+        autocomplete_list.splice(autocomplete_list.length - 2, 0, '<li id = "' + key + '" class="list-group-item">' + key + ': ' + autocomplete[key] + '<button type="button" style = "right:20px;float:right" class="open_flow btn btn-danger"> Delete</button>' + '</li>')
+    }
+}
+
+
+
 function resetAutoDefault() {
     autocomplete = {
         'c1': 'Contention 1',
@@ -591,7 +642,7 @@ function generateAutoList() {
     '</div>'
 ]
     for (key in autocomplete) {
-        autocomplete_list.splice(autocomplete_list.length - 2, 0, '<li id = "' + key + '" class="list-group-item">' + key + ': ' + autocomplete[key] + '<button type="button" style = "right:20px;float:right" class="auto_delete btn btn-danger"> Delete</button>' + '</li>')
+        autocomplete_list.splice(autocomplete_list.length - 2, 0, '<li id = "' + key + '" class="list-group-item">' + key + ': ' + autocomplete[key] + '<button type="button" style = "right:20px;float:right" class="open_flow btn btn-danger"> Delete</button>' + '</li>')
     }
 }
 /* Reconfigure PF Speaker */
