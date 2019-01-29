@@ -1,8 +1,3 @@
-/*
-var Mousetrap = require('mousetrap')
-const fs = require('fs')
-const dialog = require('electron').remote.dialog
-*/
 
 // Variables used to access HTML elements for DOM manipulation
 
@@ -40,12 +35,6 @@ else {
     offNum = 7
 }
 
-/*
-var vex = require('vex-js')
-vex.registerPlugin(require('vex-dialog'))
-vex.defaultOptions.className = 'vex-theme-os'
-*/
-
 
 var x
 var w
@@ -63,10 +52,6 @@ var dataSuccess = false
 var speechDocRemoved = false
 
 // Variables for storing auto-complete data
-
-/*
-const Store = require('electron-store')
-const store = new Store()
 
 var autocomplete = {
     'c1': 'Contention 1',
@@ -136,25 +121,26 @@ var fontColor = {
     'negShadeColor': '#ffffff'
 }
 
+if(localStorage.getItem("autcomplete") == "null"){
+    localStorage.setItem('autocomplete',JSON.stringify(autocomplete))
+    console.log("Fail")
+}
+else{
+    autocomplete = JSON.parse(localStorage.getItem('autocomplete'))
+}
 
-if (store.has('autocomplete') == false || store.has('flexcel3.0') == false) {
-    store.set('autocomplete', autocomplete)
-    store.set('flexcel3.0',{})
-}
-else {
-    autocomplete = store.get('autocomplete')
+if(localStorage.getItem("fontcolor") == "null"){
+    localStorage.setItem('fontColor', JSON.stringify(fontColor))
 }
 
-if (store.has('fontColor') == false) {
-    store.set('fontColor', fontColor)
-}
-else {
-    var o = store.get('fontColor')
+else{
+    var o = JSON.parse(localStorage.getItem('fontColor'))
     affFontColor = o['affFontColor']
     negFontColor = o['negFontColor']
     affShadeColor = o['affShadeColor']
     negShadeColor = o['negShadeColor']
 }
+
 
 /* 
     Selects all the first cells of the flow: This is to make sure that handsontable 
@@ -458,8 +444,7 @@ Mousetrap.bind(['command+t', 'ctrl+t'], function () {
                     if (data.key.split(" ").length == 1) {
 
                         autocomplete[data.key] = data.value
-                        store.set('autocomplete', autocomplete)
-
+                        localStorage.setItem('autocomplete', JSON.stringify(autocomplete))
                     }
                     else {
                         vex.dialog.alert('Error: Key can only be a single word.')
@@ -533,8 +518,7 @@ Mousetrap.bind(['command+g', 'ctrl+g'], function () {
         var j = $(this).parent('.list-group-item')[0].id
         $('#' + j).remove()
         delete autocomplete[j]
-        store.set('autocomplete', autocomplete)
-
+        localStorage.setItem('autocomplete',JSON.stringify(autocomplete))
     })
 
 }, 'keyup')
@@ -595,8 +579,8 @@ function resetAutoDefault() {
         'cpk': 'Cap K',
         'ak': 'Afropess K'
     }
-    store.set('autocomplete', autocomplete)
-    autocomplete = store.get('autocomplete')
+    localStorage.setItem('autocomplete',JSON.stringify(autocomplete))
+    autocomplete = JSON.parse(localStorage.getItem('autocomplete'))
 }
 
 
@@ -681,8 +665,7 @@ Mousetrap.bind(['command+f', 'ctrl+f'], function () {
 
             fontColor['affShadeColor'] = data.color[2]
             fontColor['negShadeColor'] = data.color[3]
-            store.set('fontColor', fontColor)
-
+            localStorage.setItem('fontColor', JSON.stringify(fontColor))
 
             affShadeColor = data.color[2]
             negShadeColor = data.color[3]
@@ -1964,6 +1947,5 @@ if (flow_type == 'LD Plan Flow' || flow_type == 'Policy Flow') {
 
 var speech_tabs = document.getElementById("pills-tab")
 new Sortable(speech_tabs)
-
 
 
