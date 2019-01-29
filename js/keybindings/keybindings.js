@@ -881,6 +881,8 @@ function addAdvTab(callback) {
         viewportRowRenderingOffsetequal: 35,
         viewportColumnRenderingOffset: 5,
         colWidths: 190,
+        licenseKey: 'a5f3a-e25a6-f1693-b4c16-1b148',
+        licenseKey: 'a5f3a-e25a6-f1693-b4c16-1b148',
         fillHandle: {
             autoInsertRow: true
         },
@@ -1106,6 +1108,7 @@ function addOffTab(callback) {
         viewportRowRenderingOffsetequal: 35,
         viewportColumnRenderingOffset: 4,
         colWidths: 240,
+        licenseKey: 'a5f3a-e25a6-f1693-b4c16-1b148',
         fillHandle: {
             autoInsertRow: true
         },
