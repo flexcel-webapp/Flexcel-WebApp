@@ -121,7 +121,7 @@ var fontColor = {
     'negShadeColor': '#ffffff'
 }
 
-if(localStorage.getItem("autcomplete") == "null"){
+if(localStorage.getItem("autcomplete") == null){
     localStorage.setItem('autocomplete',JSON.stringify(autocomplete))
     console.log("Fail")
 }
@@ -129,7 +129,7 @@ else{
     autocomplete = JSON.parse(localStorage.getItem('autocomplete'))
 }
 
-if(localStorage.getItem("fontcolor") == "null"){
+if(localStorage.getItem("fontcolor") == null){
     localStorage.setItem('fontColor', JSON.stringify(fontColor))
 }
 
@@ -151,7 +151,7 @@ selectAllCells()
 
 /* Mousetrap js: adds keybindings for keyboard shortcuts to navigate the flow */
 document.onkeydown = function(e){
-    if(e.ctrlKey && e.keyCode == 'P'.charCodeAt(0)){
+    if(e.ctrlKey && (e.keyCode == 'P'.charCodeAt(0) || e.keyCode == 'O'.charCodeAt(0) || e.keyCode == 'R'.charCodeAt(0) || e.keyCode == 'K'.charCodeAt(0) || e.keyCode == 'J'.charCodeAt(0) || e.keyCode == 'M'.charCodeAt(0) || e.keyCode == 'Y'.charCodeAt(0) || e.keyCode == 'I'.charCodeAt(0) || e.keyCode == 'D'.charCodeAt(0) || e.keyCode == 'S'.charCodeAt(0) || e.keyCode == 'T'.charCodeAt(0) || e.keyCode == 'G'.charCodeAt(0) || e.keyCode == 'H'.charCodeAt(0)|| e.keyCode == 'L'.charCodeAt(0) || e.keyCode == 'F'.charCodeAt(0) || e.keyCode == 'B'.charCodeAt(0) || e.keyCode == 'O'.charCodeAt(0))){
         console.log("Print cancelled")
         e.preventDefault();
         //your saving code
@@ -164,7 +164,8 @@ document.onkeydown = function(e){
 
 /* Adds keybindg to switch to the previous tab */
 
-Mousetrap.bind(['command+o', 'ctrl+o'], function () {
+Mousetrap.bind(['command+o', 'ctrl+o'], function (e) {
+    e.preventDefault()
     previousTab()
 }, 'keyup')
 
