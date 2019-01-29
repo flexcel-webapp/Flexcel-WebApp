@@ -150,6 +150,16 @@ selectAllCells()
 
 
 /* Mousetrap js: adds keybindings for keyboard shortcuts to navigate the flow */
+document.onkeydown = function(e){
+    if(e.ctrlKey && e.keyCode == 'P'.charCodeAt(0)){
+        console.log("Print cancelled")
+        e.preventDefault();
+        //your saving code
+    }
+}
+
+
+
 
 
 /* Adds keybindg to switch to the previous tab */
