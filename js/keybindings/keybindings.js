@@ -1046,8 +1046,6 @@ function addAdvTab(callback) {
 
     /* Removes all of Handsontable's licenses */
 
-    var allLiceneses = document.querySelectorAll("#hot-display-license-info")
-    $(allLiceneses).remove()
 
     nextTab()
     callback()
@@ -1274,8 +1272,6 @@ function addOffTab(callback) {
 
     /* Removes all of Handsontable's licenses */
 
-    var allLiceneses = document.querySelectorAll("#hot-display-license-info")
-    $(allLiceneses).remove()
 
     nextTab()
     callback()

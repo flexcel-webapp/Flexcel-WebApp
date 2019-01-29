@@ -148,10 +148,6 @@ for (i = 0; i < handsontable_flows.length; i++) {
 }
 
 
-/* Removes all of Handsontable's licenses */
-
-var allLiceneses = document.querySelectorAll("#hot-display-license-info");
-$(allLiceneses).remove();
 
 
 
