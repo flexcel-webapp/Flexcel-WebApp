@@ -120,24 +120,49 @@ var fontColor = {
     'negShadeColor': '#ffffff'
 }
 
-if(localStorage.getItem("autcomplete") == null){
-    localStorage.setItem('autocomplete',JSON.stringify(autocomplete))
-    console.log("Fail")
-}
-else{
-    autocomplete = JSON.parse(localStorage.getItem('autocomplete'))
+if (navigator.platform == "MacIntel") {
+    if (localStorage.getItem("autocomplete") == "null") {
+        localStorage.setItem('autocomplete', JSON.stringify(autocomplete))
+        console.log("Fail")
+    }
+    else {
+        autocomplete = JSON.parse(localStorage.getItem('autocomplete'))
+    }
+
+    if (localStorage.getItem("fontcolor") == "null") {
+        localStorage.setItem('fontColor', JSON.stringify(fontColor))
+    }
+
+    else {
+        var o = JSON.parse(localStorage.getItem('fontColor'))
+        affFontColor = o['affFontColor']
+        negFontColor = o['negFontColor']
+        affShadeColor = o['affShadeColor']
+        negShadeColor = o['negShadeColor']
+    }
 }
 
-if(localStorage.getItem("fontcolor") == null){
-    localStorage.setItem('fontColor', JSON.stringify(fontColor))
-}
-
 else{
-    var o = JSON.parse(localStorage.getItem('fontColor'))
-    affFontColor = o['affFontColor']
-    negFontColor = o['negFontColor']
-    affShadeColor = o['affShadeColor']
-    negShadeColor = o['negShadeColor']
+    if(localStorage.getItem("autocomplete") == null){
+        localStorage.setItem('autocomplete',JSON.stringify(autocomplete))
+        console.log("Fail")
+    }
+    else{
+        autocomplete = JSON.parse(localStorage.getItem('autocomplete'))
+    }
+    
+    if(localStorage.getItem("fontcolor") == null){
+        localStorage.setItem('fontColor', JSON.stringify(fontColor))
+    }
+    
+    else{
+        var o = JSON.parse(localStorage.getItem('fontColor'))
+        affFontColor = o['affFontColor']
+        negFontColor = o['negFontColor']
+        affShadeColor = o['affShadeColor']
+        negShadeColor = o['negShadeColor']
+    }
+    
 }
 
 
@@ -149,8 +174,8 @@ selectAllCells()
 
 
 /* Mousetrap js: adds keybindings for keyboard shortcuts to navigate the flow */
-document.onkeydown = function(e){
-    if(e.ctrlKey && (e.keyCode == 'P'.charCodeAt(0) || e.keyCode == 'O'.charCodeAt(0) || e.keyCode == 'R'.charCodeAt(0) || e.keyCode == 'K'.charCodeAt(0) || e.keyCode == 'J'.charCodeAt(0) || e.keyCode == 'M'.charCodeAt(0) || e.keyCode == 'Y'.charCodeAt(0) || e.keyCode == 'I'.charCodeAt(0) || e.keyCode == 'D'.charCodeAt(0) || e.keyCode == 'S'.charCodeAt(0) || e.keyCode == 'T'.charCodeAt(0) || e.keyCode == 'G'.charCodeAt(0) || e.keyCode == 'H'.charCodeAt(0)|| e.keyCode == 'L'.charCodeAt(0) || e.keyCode == 'F'.charCodeAt(0) || e.keyCode == 'B'.charCodeAt(0) || e.keyCode == 'O'.charCodeAt(0))){
+document.onkeydown = function (e) {
+    if (e.ctrlKey && (e.keyCode == 'P'.charCodeAt(0) || e.keyCode == 'O'.charCodeAt(0) || e.keyCode == 'R'.charCodeAt(0) || e.keyCode == 'K'.charCodeAt(0) || e.keyCode == 'J'.charCodeAt(0) || e.keyCode == 'M'.charCodeAt(0) || e.keyCode == 'Y'.charCodeAt(0) || e.keyCode == 'I'.charCodeAt(0) || e.keyCode == 'D'.charCodeAt(0) || e.keyCode == 'S'.charCodeAt(0) || e.keyCode == 'T'.charCodeAt(0) || e.keyCode == 'G'.charCodeAt(0) || e.keyCode == 'H'.charCodeAt(0) || e.keyCode == 'L'.charCodeAt(0) || e.keyCode == 'F'.charCodeAt(0) || e.keyCode == 'B'.charCodeAt(0) || e.keyCode == 'O'.charCodeAt(0))) {
         console.log("Print cancelled")
         e.preventDefault();
         //your saving code
@@ -273,8 +298,8 @@ Mousetrap.bind(['command+m', 'ctrl+m'], function () {
     var rc = handsontable_flows[index].getSelected()
     var r = rc[0]
     var c = rc[1]
-    handsontable_flows[index].alter('insert_row',r,1)
-    handsontable_flows[index].selectCell(r,c)
+    handsontable_flows[index].alter('insert_row', r, 1)
+    handsontable_flows[index].selectCell(r, c)
     data['flow-data'][index] = handsontable_flows[index].getData()
 
 }, 'keyup')
@@ -317,20 +342,20 @@ Mousetrap.bind(['command+i', 'ctrl+i'], function () {
 
         vex.dialog.confirm({
             message: 'Are you sure you want to delete the tab?',
-            
+
             callback: function (value) {
                 if (value) {
                     deleteTab()
                     resizeFlowHeight()
                     tD = true
-                } 
+                }
                 selectAllCells()
 
             }
         })
 
         $(".vex-dialog-button-primary")[0].focus()
-        
+
     }
 
 }, 'keyup')
@@ -396,7 +421,7 @@ Mousetrap.bind(['command+s', 'ctrl+s'], function () {
 
             selectAllCells()
             if (fileName != '') {
-                localStorage.setItem(fileName,jsonContent)
+                localStorage.setItem(fileName, jsonContent)
             }
         }
     })
@@ -467,7 +492,7 @@ Mousetrap.bind(['command+g', 'ctrl+g'], function () {
     handsontable_flows[index].deselectCell()
 
     vex.dialog.open({
-      
+
         input: autocomplete_list.join(''),
         buttons: [
 
@@ -511,7 +536,7 @@ Mousetrap.bind(['command+g', 'ctrl+g'], function () {
         var j = $(this).parent('.list-group-item')[0].id
         $('#' + j).remove()
         delete autocomplete[j]
-        localStorage.setItem('autocomplete',JSON.stringify(autocomplete))
+        localStorage.setItem('autocomplete', JSON.stringify(autocomplete))
     })
 
 }, 'keyup')
@@ -525,7 +550,7 @@ Mousetrap.bind(['command+h', 'ctrl+h'], function () {
     handsontable_flows[index].deselectCell()
 
     vex.dialog.open({
-      
+
         input: autocomplete_list.join(''),
         buttons: [
 
@@ -566,17 +591,17 @@ Mousetrap.bind(['command+h', 'ctrl+h'], function () {
 
 
     $('.open_flow').on('click', function (e) {
-       
+
     })
 
 }, 'keyup')
 
 function generateFlowList() {
     autocomplete_list = ['<div class = "flow">',
-    '<ul class="list-group">',
-    '</ul>',
-    '</div>'
-]
+        '<ul class="list-group">',
+        '</ul>',
+        '</div>'
+    ]
 
     for (key in autocomplete) {
         autocomplete_list.splice(autocomplete_list.length - 2, 0, '<li id = "' + key + '" class="list-group-item">' + key + ': ' + autocomplete[key] + '<button type="button" style = "right:20px;float:right" class="open_flow btn btn-danger"> Delete</button>' + '</li>')
@@ -619,7 +644,7 @@ function resetAutoDefault() {
         'st': 'standard is',
         'im': 'Impact',
         'vm': 'value: morality',
-        'st':'standard is',
+        'st': 'standard is',
         'sv': 'mitigating structural violence',
         'msw': 'maximizing societal welfare',
         'mew': 'maximizing expected wellbeing',
@@ -640,17 +665,17 @@ function resetAutoDefault() {
         'cpk': 'Cap K',
         'ak': 'Afropess K'
     }
-    localStorage.setItem('autocomplete',JSON.stringify(autocomplete))
+    localStorage.setItem('autocomplete', JSON.stringify(autocomplete))
     autocomplete = JSON.parse(localStorage.getItem('autocomplete'))
 }
 
 
 function generateAutoList() {
     autocomplete_list = ['<div class = "autocomplete_list">',
-    '<ul class="list-group">',
-    '</ul>',
-    '</div>'
-]
+        '<ul class="list-group">',
+        '</ul>',
+        '</div>'
+    ]
     for (key in autocomplete) {
         autocomplete_list.splice(autocomplete_list.length - 2, 0, '<li id = "' + key + '" class="list-group-item">' + key + ': ' + autocomplete[key] + '<button type="button" style = "right:20px;float:right" class="open_flow btn btn-danger"> Delete</button>' + '</li>')
     }
@@ -1582,12 +1607,12 @@ function switchToCon() {
     data['firstSpeaker'] = 'Con'
     dataLoaded = true
     handsontable_flows[0].updateSettings({
-        data: [['Con Constructive', 'Pro Rebuttal', 'Con Summary', 'Pro Summary', 'Con Final Focus', 'Pro Final Focus','','','','','','']]
+        data: [['Con Constructive', 'Pro Rebuttal', 'Con Summary', 'Pro Summary', 'Con Final Focus', 'Pro Final Focus', '', '', '', '', '', '']]
     })
 
     dataLoaded = true
     handsontable_flows[1].updateSettings({
-        data: [['Pro Constructive', 'Con Rebuttal', 'Pro Rebuttal', 'Con Summary', 'Pro Summary', 'Con Final Focus','','','','','','']]
+        data: [['Pro Constructive', 'Con Rebuttal', 'Pro Rebuttal', 'Con Summary', 'Pro Summary', 'Con Final Focus', '', '', '', '', '', '']]
     })
 }
 
@@ -1598,14 +1623,14 @@ function switchToPro() {
     data['firstSpeaker'] = 'Pro'
     dataLoaded = true
     handsontable_flows[0].updateSettings({
-        data: [['Pro Constructive', 'Con Rebuttal', 'Pro Summary', 'Con Summary', 'Pro Final Focus', 'Con Final Focus','','','','','','']],
+        data: [['Pro Constructive', 'Con Rebuttal', 'Pro Summary', 'Con Summary', 'Pro Final Focus', 'Con Final Focus', '', '', '', '', '', '']],
     })
 
     dataLoaded = true
     handsontable_flows[1].updateSettings({
         minCol: 7,
         maxCols: 12,
-        data:  [['Con Constructive', 'Pro Rebuttal', 'Con Rebuttal', 'Pro Summary', 'Con Summary', 'Pro Final Focus', 'Neg Final Focus', '', '', '', '', '']],
+        data: [['Con Constructive', 'Pro Rebuttal', 'Con Rebuttal', 'Pro Summary', 'Con Summary', 'Pro Final Focus', 'Neg Final Focus', '', '', '', '', '']],
     })
 }
 
