@@ -126,63 +126,36 @@ var fontColor = {
 
 var saved_flows = {}
 
-if (navigator.platform == "MacIntel") {
-    if (localStorage.getItem("autocomplete") == "null") {
-        localStorage.setItem('autocomplete', JSON.stringify(autocomplete))
-        console.log("Fail")
-    }
-    else {
-        autocomplete = JSON.parse(localStorage.getItem('autocomplete'))
-    }
-
-    if (localStorage.getItem("fontcolor") == "null") {
-        localStorage.setItem('fontColor', JSON.stringify(fontColor))
-    }
-
-    else {
-        var o = JSON.parse(localStorage.getItem('fontColor'))
-        affFontColor = o['affFontColor']
-        negFontColor = o['negFontColor']
-        affShadeColor = o['affShadeColor']
-        negShadeColor = o['negShadeColor']
-    }
-
-    if(localStorage.getItem("saved_flows") == null){
-        localStorage.setItem('saved_flows', JSON.stringify(saved_flows))
-
-    }
-    else{
-        saved_flows = JSON.parse(localStorage.getItem('saved_flows'))
-
-    }
+if (localStorage.getItem("autocomplete") == null || localStorage.getItem("autocomplete") == "null" ) {
+    localStorage.setItem('autocomplete', JSON.stringify(autocomplete))
+    console.log("Fail")
+}
+else {
+    autocomplete = JSON.parse(localStorage.getItem('autocomplete'))
 }
 
-else{
-    if(localStorage.getItem("autocomplete") == null){
-        localStorage.setItem('autocomplete',JSON.stringify(autocomplete))
-        console.log("Fail")
-    }
-    else{
-        autocomplete = JSON.parse(localStorage.getItem('autocomplete'))
-    }
-    
-    if(localStorage.getItem("fontcolor") == null){
-        localStorage.setItem('fontColor', JSON.stringify(fontColor))
-    }
-    
-    else{
-        var o = JSON.parse(localStorage.getItem('fontColor'))
-        affFontColor = o['affFontColor']
-        negFontColor = o['negFontColor']
-        affShadeColor = o['affShadeColor']
-        negShadeColor = o['negShadeColor']
-    }
-
-    if(localStorage.getItem("saved_flows") != null){
-        saved_flows = JSON.parse(localStorage.getItem('saved_flows'))
-    }
-    
+if (localStorage.getItem("fontcolor") == null || localStorage.getItem("fontcolor") == "null") {
+    localStorage.setItem('fontColor', JSON.stringify(fontColor))
 }
+
+else {
+    var o = JSON.parse(localStorage.getItem('fontColor'))
+    affFontColor = o['affFontColor']
+    negFontColor = o['negFontColor']
+    affShadeColor = o['affShadeColor']
+    negShadeColor = o['negShadeColor']
+}
+
+if (localStorage.getItem("saved_flows") == null) {
+    localStorage.setItem('saved_flows', JSON.stringify(saved_flows))
+
+}
+else {
+    saved_flows = JSON.parse(localStorage.getItem('saved_flows'))
+
+}
+
+
 
 
 /* 
@@ -541,7 +514,7 @@ function generateAutoList() {
 
 /* Generates a modal for the user to see and open saved flows */
 
-Mousetrap.bind(['command+h', 'ctrl+h'], function () {
+Mousetrap.bind(['command+d', 'ctrl+d'], function () {
 
     generateFlowList()
     handsontable_flows[index].deselectCell()
@@ -608,7 +581,7 @@ function generateFlowList() {
     for (key in saved_flows) {
 
         var fl = JSON.parse(saved_flows[key])['flow_type']
-        flow_list.splice(flow_list.length - 2, 0, '<li id = "' + key + '" class="list-group-item">' + key + '[' + fl +']' + '<button type="button" style = "right:20px;float:right" class="open_flow btn btn-danger"> Open Flow</button>' + '</li>')
+        flow_list.splice(flow_list.length - 2, 0, '<li id = "' + key + '" class="list-group-item">' + key + '[' + fl + ']' + '<button type="button" style = "right:20px;float:right" class="open_flow btn btn-danger"> Open Flow</button>' + '</li>')
     }
 }
 
@@ -1446,8 +1419,8 @@ function loadFlow() {
         document.title = fileName
     }
     else {
-            vex.dialog.alert('Error: Only ' + flow_type + ' can be loaded')
-        
+        vex.dialog.alert('Error: Only ' + flow_type + ' can be loaded')
+
     }
     console.log("The file content is : " + loadedData)
     dataSuccess = false
