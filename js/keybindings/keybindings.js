@@ -35,9 +35,6 @@ else {
 }
 
 
-var x
-var w
-
 // Font Weight Configuration
 var bold_cell_tD = []
 
@@ -112,6 +109,13 @@ var autocomplete_list = ['<div class = "autocomplete_list">',
     '</div>'
 ]
 
+var flow_list = ['<div class = "flow_list">',
+    '<ul class="list-group">',
+    '</ul>',
+    '</div>'
+]
+
+
 
 var fontColor = {
     'affFontColor': '#ff2600',
@@ -119,6 +123,8 @@ var fontColor = {
     'affShadeColor': '#ffffff',
     'negShadeColor': '#ffffff'
 }
+
+var saved_flows = {}
 
 if (navigator.platform == "MacIntel") {
     if (localStorage.getItem("autocomplete") == "null") {
@@ -139,6 +145,15 @@ if (navigator.platform == "MacIntel") {
         negFontColor = o['negFontColor']
         affShadeColor = o['affShadeColor']
         negShadeColor = o['negShadeColor']
+    }
+
+    if(localStorage.getItem("saved_flows") == null){
+        localStorage.setItem('saved_flows', JSON.stringify(saved_flows))
+
+    }
+    else{
+        saved_flows = JSON.parse(localStorage.getItem('saved_flows'))
+
     }
 }
 
@@ -161,6 +176,10 @@ else{
         negFontColor = o['negFontColor']
         affShadeColor = o['affShadeColor']
         negShadeColor = o['negShadeColor']
+    }
+
+    if(localStorage.getItem("saved_flows") != null){
+        saved_flows = JSON.parse(localStorage.getItem('saved_flows'))
     }
     
 }
@@ -360,43 +379,9 @@ Mousetrap.bind(['command+i', 'ctrl+i'], function () {
 
 }, 'keyup')
 
-/* 
-   User selects the file and it loaded into the flow if the 
-   flow-type and file type is correct.
-*/
-
-Mousetrap.bind(['command+d', 'ctrl+d'], function () {
-
-    dialog.showOpenDialog((fileNames) => {
-        if (fileNames === undefined) {
-            console.log("No file selected")
-            return;
-        }
-        var fileName = fileNames[0];
-
-        x = fileName.split('/')
-        w = x[x.length - 1].split('.')
-
-        fs.readFile(fileName, 'utf-8', (err, data) => {
-            if (err) {
-                alert("An error ocurred reading the file :" + err.message)
-                return;
-            }
-            try {
-                loadedData = JSON.parse(data)
-                dataSuccess = true
-            }
-            catch (err) {
-                vex.dialog.alert('Error: Only .json files can be loaded')
-            }
-            dataLoaded = true
-            loadFlow()
-        })
-    })
 
 
 
-}, 'keyup')
 
 /* 
     Saves the flow (data json obj) to a json format.    
@@ -421,7 +406,8 @@ Mousetrap.bind(['command+s', 'ctrl+s'], function () {
 
             selectAllCells()
             if (fileName != '') {
-                localStorage.setItem(fileName, jsonContent)
+                saved_flows[fileName] = jsonContent
+                localStorage.setItem("saved_flows", JSON.stringify(saved_flows))
             }
         }
     })
@@ -541,17 +527,28 @@ Mousetrap.bind(['command+g', 'ctrl+g'], function () {
 
 }, 'keyup')
 
+function generateAutoList() {
+    autocomplete_list = ['<div class = "autocomplete_list">',
+        '<ul class="list-group">',
+        '</ul>',
+        '</div>'
+    ]
+    for (key in autocomplete) {
+        autocomplete_list.splice(autocomplete_list.length - 2, 0, '<li id = "' + key + '" class="list-group-item">' + key + ': ' + autocomplete[key] + '<button type="button" style = "right:20px;float:right" class="auto_delete btn btn-danger"> Delete</button>' + '</li>')
+    }
+}
+
 
 /* Generates a modal for the user to see and open saved flows */
 
 Mousetrap.bind(['command+h', 'ctrl+h'], function () {
 
-    generateAutoList()
+    generateFlowList()
     handsontable_flows[index].deselectCell()
 
     vex.dialog.open({
 
-        input: autocomplete_list.join(''),
+        input: flow_list.join(''),
         buttons: [
 
         ],
@@ -591,20 +588,27 @@ Mousetrap.bind(['command+h', 'ctrl+h'], function () {
 
 
     $('.open_flow').on('click', function (e) {
+        var j = $(this).parent('.list-group-item')[0].id
 
+        fileName = j
+        loadedData = JSON.parse(saved_flows[j])
+        $(".vex-theme-os")[0].remove()
+        loadFlow()
     })
 
 }, 'keyup')
 
 function generateFlowList() {
-    autocomplete_list = ['<div class = "flow">',
+    flow_list = ['<div class = "flow_list">',
         '<ul class="list-group">',
         '</ul>',
         '</div>'
     ]
 
-    for (key in autocomplete) {
-        autocomplete_list.splice(autocomplete_list.length - 2, 0, '<li id = "' + key + '" class="list-group-item">' + key + ': ' + autocomplete[key] + '<button type="button" style = "right:20px;float:right" class="open_flow btn btn-danger"> Delete</button>' + '</li>')
+    for (key in saved_flows) {
+
+        var fl = JSON.parse(saved_flows[key])['flow_type']
+        flow_list.splice(flow_list.length - 2, 0, '<li id = "' + key + '" class="list-group-item">' + key + '[' + fl +']' + '<button type="button" style = "right:20px;float:right" class="open_flow btn btn-danger"> Open Flow</button>' + '</li>')
     }
 }
 
@@ -670,16 +674,7 @@ function resetAutoDefault() {
 }
 
 
-function generateAutoList() {
-    autocomplete_list = ['<div class = "autocomplete_list">',
-        '<ul class="list-group">',
-        '</ul>',
-        '</div>'
-    ]
-    for (key in autocomplete) {
-        autocomplete_list.splice(autocomplete_list.length - 2, 0, '<li id = "' + key + '" class="list-group-item">' + key + ': ' + autocomplete[key] + '<button type="button" style = "right:20px;float:right" class="open_flow btn btn-danger"> Delete</button>' + '</li>')
-    }
-}
+
 /* Reconfigure PF Speaker */
 
 Mousetrap.bind(['command+l', 'ctrl+l'], function () {
@@ -1414,7 +1409,7 @@ function switchFlow() {
 }
 
 function loadFlow() {
-    if (dataSuccess && loadedData['flow_type'] == flow_type) {
+    if (loadedData['flow_type'] == flow_type) {
 
 
         $('#body').append('<div class="loader" id="pre-loader"></div>')
@@ -1447,12 +1442,12 @@ function loadFlow() {
         else {
             loadData()
         }
-        document.title = w[0]
+
+        document.title = fileName
     }
     else {
-        if (dataSuccess == true) {
             vex.dialog.alert('Error: Only ' + flow_type + ' can be loaded')
-        }
+        
     }
     console.log("The file content is : " + loadedData)
     dataSuccess = false
